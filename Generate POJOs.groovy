@@ -24,6 +24,13 @@ FILES.chooseDirectoryAndSave("Choose directory", "Choose where to store generate
 
 def generate(table, dir) {
     def className = javaName(table.getName(), true)
+    if(className.endsWith("ies")) className = className.substring(0,className.length()-3)+"y" //replace final "ies" with "y"
+    else if(className.endsWith("ses")) className = className.substring(0,className.length()-3)+"sis" //replace final ses by sis analysis -> analyses
+    else if(className.endsWith("oes")) className = className.substring(0,className.length()-2) //shoes -> shoe papatoes -> patato
+    else if(className.endsWith("ves")) className = className.substring(0,className.length()-3)+"f" //wife->wives, wolf->wolves
+    else if(className.endsWith("es")) className = className.substring(0,className.length()-2) //remove final es class-> classes
+    else if(className.endsWith("s")) className = className.substring(0,className.length()-1) //remove final s
+
     def fields = calcFields(table)
     new File(dir, className + ".java").withPrintWriter { out -> generate(out, className, fields) }
 }
