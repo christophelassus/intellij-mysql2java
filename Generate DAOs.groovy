@@ -12,16 +12,18 @@ import com.intellij.database.util.DasUtil
 
 packageName = "com.sample;"
 typeMapping = [
-        (~/(?i)tinyint/)                            : "boolean",
-        (~/(?i)int/)                                : "long",
-        (~/(?i)float|double|decimal|real/)          : "double",
-        (~/(?i)datetime|timestamp|date|time/)       : "Date",
-        (~/(?i)/)                                   : "String"
+        (~/(?i)tinyint/)                     : "boolean",
+        (~/(?i)bigint/)                      : "long",
+        (~/(?i)int/)                         : "int",
+        (~/(?i)float|double|decimal|real/)   : "double",
+        (~/(?i)datetime|timestamp|date|time/): "Date",
+        (~/(?i)/)                            : "String"
 ]
 
 
 rsGetTypeMapping = [
-        (~/(?i)bigint/)                                : "Long",
+        (~/(?i)tinyint/)                            : "Boolean",
+        (~/(?i)bigint/)                             : "Long",
         (~/(?i)int/)                                : "Int",
         (~/(?i)float|double|decimal|real/)          : "Double",
         (~/(?i)datetime|timestamp|time/)            : "Timestamp",
