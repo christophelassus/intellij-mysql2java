@@ -79,6 +79,7 @@ def calcFields(table) {
         def isNull = !col.isNotNull();
         def typeStr = typeMapping.find { p, t -> p.matcher(spec).find() }.value
         if (isNull) typeStr = typeStr.capitalize()
+        if("Int".equals(typeStr)) typeStr = "Integer"
         fields += [[
                            name : javaName(col.getName(), false),
                            type : typeStr,
