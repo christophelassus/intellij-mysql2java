@@ -33,12 +33,13 @@ def generate(table, dir) {
     else if(className.endsWith("s")) className = className.substring(0,className.length()-1) //remove final s
 
     def fields = calcFields(table)
-    new File(dir, className + ".java").withPrintWriter { out -> generate(out, className, fields) }
+    new File(dir, className + ".java").withPrintWriter { out -> generate(out, className, fields, dir) }
 }
 
-def generate(out, className, fields) {
+def generate(out, className, fields,dir) {
 
-    out.println "package $packageName"
+    def packageName = workoutPackageName(dir)
+    out.println "package ${packageName};"
     out.println ""
     out.println ""
     out.println "public class $className {"
@@ -113,4 +114,17 @@ def generateDefaultConstructor(out, className, fields) {
     out.println " {"
     out.println " }"
 
+}
+
+def workoutPackageName(dir)
+{
+    def dirName = ""+dir;
+    def prefix = "/src/"
+    if(dirName.indexOf(prefix)>-1)
+    {
+        def startIndex = dirName.indexOf(prefix) + prefix.length()
+        def packageName = dirName.substring(startIndex)
+        return packageName.replaceAll(/\//,".")
+    }
+    else return dirName;
 }
